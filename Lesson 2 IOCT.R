@@ -1,6 +1,5 @@
 
 library(tidyverse)
-
 ioct <- read_csv(file = "https://raw.githubusercontent.com/kfcaby/MA376AY21/master/data/IOCT_Data_Cleaned.csv")
 
 # Do corps squad athletes do better on the IOCT?
