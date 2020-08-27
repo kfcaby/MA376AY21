@@ -1,0 +1,108 @@
+---
+title: "Letters"
+author: "Kevin Cummiskey"
+date: "8/25/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+
+cadets <- read_csv(file = "https://raw.githubusercontent.com/kfcaby/MA376AY21/master/data/memorizing%20letters%20(Exploration%201.1)")
+```
+
+## Step 3
+
+First, we'll investigate the response variable.
+
+```{r}
+cadets %>% 
+  ggplot(aes(x = factor(group), y = letters)) +
+  geom_boxplot()
+```
+
+The single mean model is:
+
+$$y_i = \mu + \epsilon_i$$
+$$\epsilon_i$$ has a Normal distribution with mean 0 and variance $$\sigma^2$$.
+
+The separate means model is:
+
+$$y_i = \mu_j + \epsilon_{ij}$$
+
+```{r}
+cadets %>% 
+  group_by(group) %>% 
+  summarize(mean = mean(letters))
+```
+
+We want to know the standard error of the single mean and separate means model.
+
+Single mean model
+
+```{r}
+# calculate residuals
+cadets = cadets %>% 
+  mutate(single.mean = mean(letters),
+         single.mean.residual = letters - single.mean)
+
+cadets %>% 
+  summarize(single.mean.se = sqrt(sum(single.mean.residual^2)/14))
+```
+
+Separate mean model
+
+```{r}
+# calculate residuals
+cadets = cadets %>%
+  group_by(group) %>% 
+  mutate(group.mean = mean(letters))
+  
+cadets = cadets %>% 
+  mutate(group.mean.residual = letters - group.mean)
+ 
+#standard error 
+cadets %>% 
+  group_by() %>% 
+  summarize(group.mean.se = sqrt(sum(group.mean.residual^2)/13))
+```
+
+Calculate Sums of squares total (SST)
+
+```{r}
+#distance from data point to the overall mean
+# single mean residual is y_i - ybar
+
+SST = cadets %>% 
+  group_by() %>% 
+  summarize(sum(single.mean.residual^2))
+SST  
+
+```
+
+
+Calculate Sums of Squares Model (SSM)
+
+```{r}
+SSM = cadets %>% 
+  group_by() %>% 
+  summarize(sum((group.mean - single.mean)^2))
+SSM
+```
+
+How would I do this in practice?
+
+```{r}
+model_group = cadets %>% 
+  lm(letters ~ factor(group), data = .)
+
+model_group %>% summary()
+
+anova(model_group)
+
+```
+
+
+

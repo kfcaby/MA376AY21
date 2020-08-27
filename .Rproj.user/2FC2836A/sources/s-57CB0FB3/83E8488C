@@ -1,0 +1,33 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1598367789090.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "83E8488C",
+    "lastKnownWriteTime" : 0,
+    "last_content_update" : 1598367789090,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "88BEF583",
+        "caption" : "wages",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=wages&cache_key=88BEF583",
+        "displayedObservations" : 180084,
+        "environment" : "",
+        "expression" : "wages",
+        "object" : "wages",
+        "preview" : 0,
+        "totalObservations" : 180084,
+        "variables" : 10
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 6,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

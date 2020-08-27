@@ -52,4 +52,57 @@ cadets %>%
   summarize(single.mean.se = sqrt(sum(single.mean.residual^2)/14))
 ```
 
+Separate mean model
+
+```{r}
+# calculate residuals
+cadets = cadets %>%
+  group_by(group) %>% 
+  mutate(group.mean = mean(letters))
+  
+cadets = cadets %>% 
+  mutate(group.mean.residual = letters - group.mean)
+ 
+#standard error 
+cadets %>% 
+  group_by() %>% 
+  summarize(group.mean.se = sqrt(sum(group.mean.residual^2)/13))
+```
+
+Calculate Sums of squares total (SST)
+
+```{r}
+#distance from data point to the overall mean
+# single mean residual is y_i - ybar
+
+SST = cadets %>% 
+  group_by() %>% 
+  summarize(sum(single.mean.residual^2))
+SST  
+
+```
+
+
+Calculate Sums of Squares Model (SSM)
+
+```{r}
+SSM = cadets %>% 
+  group_by() %>% 
+  summarize(sum((group.mean - single.mean)^2))
+SSM
+```
+
+How would I do this in practice?
+
+```{r}
+model_group = cadets %>% 
+  lm(letters ~ factor(group), data = .)
+
+model_group %>% summary()
+
+anova(model_group)
+
+```
+
+
 
