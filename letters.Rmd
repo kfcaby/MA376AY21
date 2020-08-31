@@ -104,5 +104,71 @@ anova(model_group)
 
 ```
 
+Null: there is no association between experimental group and number of letters memorized.
+Alternative: there is an association between experimental group and number of letters memorized.
 
+Calculate a $p$-value using simulation-based inference
+
+```{r}
+cadets.sim <- cadets
+
+results <- c()
+
+for(i in 1:1000){
+  #shuffle the groups
+  cadets.sim <- cadets.sim %>% 
+    mutate(group.sim = sample(group))
+  
+  #calculate the means
+  diff <- cadets.sim %>% 
+    group_by(group.sim) %>% 
+    summarize(group.mean = mean(letters)) %>% 
+    mutate(diff = group.mean - lag(group.mean)) %>% 
+    pull(diff)
+  
+  results[i] = diff[2]
+}
+
+sum(results < -10.167)/1000
+```
+
+Calculate a $p$-value using theory-based test.
+
+```{r}
+#t.test
+cadets %>% 
+  t.test(letters ~ group, data = .)
+
+# regression notation
+cadets %>% 
+  lm(letters ~ group, data = .) %>% 
+  summary()
+
+```
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+cadets.sim <- cadets
+
+diffs <- c()
+
+for(i in 1:5000){
+  results <- cadets.sim %>% 
+    mutate(group.sim = sample(group)) %>% 
+    group_by(group.sim) %>% 
+    summarize(group.mean = mean(letters)) %>% 
+    mutate(diff = group.mean - lag(group.mean)) %>% 
+    pull(diff)
+  diffs[i] = results[2]
+}
+```
 
