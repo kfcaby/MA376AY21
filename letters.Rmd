@@ -141,7 +141,7 @@ cadets %>%
 
 # regression notation
 cadets %>% 
-  lm(letters ~ group, data = .) %>% 
+  lm(letters ~ factor(group), data = .) %>% 
   summary()
 
 ```

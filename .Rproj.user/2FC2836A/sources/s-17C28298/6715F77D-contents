@@ -1,0 +1,91 @@
+library(tidyverse)
+cadets <- read_csv(file = 
+"https://raw.githubusercontent.com/kfcaby/MA376AY21/master/data/memorizing%20letters%20(Exploration%201.1)")
+
+
+cadets %>%
+  ggplot(aes(x = factor(group)), (y = letter)) +
+  geom_boxplot()
+  
+cadets %>%
+  group_by(group) %>%
+  summarise(mean = mean(letters))
+
+cadets = cadets %>%
+  mutate(single.mean = mean(letters),
+         single.mean.residual = letters - single.mean)
+
+#standard error
+cadets %>%
+  summarise(single.mean.se = sqrt(sum(single.mean.residual^2/14)))
+
+cadets %>%
+  group_by(group)%>%
+  summarise(group.mean.se = sqrt(sum(group.mean.residual^2/13)))
+
+#calculate residuals
+cadets = cadets %>%
+  group_by(group)%>%
+  mutate(group.mean = mean(letters))
+
+cadets = cadets %>%
+  mutate(group.mean.residual = letters - group.mean)
+         
+
+#Calculate SST
+SST = cadets %>%
+  group_by() %>%
+  summarize(sum(single.mean.residual^2))
+SST
+
+#Calculate SSM
+SSM = cadets %>%
+  group_by() %>%
+  summarize(sum((group.mean - single.mean)^2))
+SSM
+
+#how would I do this in practice?
+
+model._group = cadets %>%
+  lm(letters ~ factor(group), data = .)
+
+model._group %>% summary()
+
+anova(model._group)
+
+
+#####################LSN 5#########################
+
+#Null: there is no association between exprimental group and number of letters memorized
+#Alternative: there is an association between experimental group and number of letters memorized
+#Calculate p value using simulation based inference
+
+cadets.sim <- cadets
+
+results <- c()
+
+for(i in 1:1000){
+  #shuffle the groups
+  cadets.sim <- cadets.sim %>%
+    mutate(group.sim = sample(group))
+  
+  #calculate the means
+  diff <-cadets.sim %>%
+    group_by(group.sim) %>%
+    summarize(group.mean = mean(letters)) %>%
+    mutate(diff = group.mean - lag(group.mean)) %>%
+    pull(diff)
+  
+  results[i] = diff[2]
+}
+
+sum(results < -10.167)/1000
+
+#calculate a p value using a theory based test
+cadets %>%
+  t.test(letters ~ group, data = .)
+
+#regression notation
+cadets%>%
+  lm(letters ~ group, data = .) %>%
+  summary()
