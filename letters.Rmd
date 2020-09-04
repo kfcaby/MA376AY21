@@ -42,6 +42,9 @@ We want to know the standard error of the single mean and separate means model.
 
 Single mean model
 
+![titanic](titanic.png)
+
+
 ```{r}
 # calculate residuals
 cadets = cadets %>% 

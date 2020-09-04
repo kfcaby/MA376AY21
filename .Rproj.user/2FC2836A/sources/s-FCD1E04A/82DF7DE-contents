@@ -1,0 +1,35 @@
+library(tidyverse)
+library(knitr)
+
+wages <- read_csv(file = "data/wage_data.csv")
+
+wages  %>%  
+  filter(str_sub(Occupation, start = 1, end = 2) == "21") %>% 
+  group_by(Sex) %>% 
+  summarise(`Average Earnings` = mean(Earnings),
+            `Standard Deviation` = sd(Earnings),
+            n = n()) %>% 
+  kable()
+
+wages  %>%  
+  filter(str_sub(Occupation, start = 1, end = 2) == "21") %>% 
+  filter(Earnings < 300000) %>% 
+  ggplot(aes(x= Sex, y = Earnings)) +
+  geom_boxplot() +
+  theme(text = element_text(size = 16))
+
+wages  %>%  
+  filter(str_sub(Occupation, start = 1, end = 2) == "21") %>% 
+  t.test(Earnings ~ Sex, data = .)
+
+
+wages %>% 
+  filter(Earnings > 0, Earnings < 500000) %>% 
+  mutate(Education = factor(Education, levels = c("HS Graduate",
+                                                  "Bachelors",
+                                                  "Masters",
+                                                  "PhD/MD/JD"))) %>% 
+  filter(!is.na(Education)) %>% 
+  ggplot(aes(x = Education, y = Earnings)) +
+  geom_boxplot() +
+  theme(text = element_text(size = 12))

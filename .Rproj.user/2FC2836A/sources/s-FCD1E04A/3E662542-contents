@@ -10,7 +10,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 library(tidyverse)
 
-cadets <- read_csv(file = "https://raw.githubusercontent.com/kfcaby/MA376AY21/master/data/memorizing%20letters%20(Exploration%201_1).csv")
+cadets <- read_csv(file = "https://raw.githubusercontent.com/kfcaby/MA376AY21/master/data/memorizing%20letters%20(Exploration%201.1)")
 ```
 
 ## Step 3
@@ -41,6 +41,9 @@ cadets %>%
 We want to know the standard error of the single mean and separate means model.
 
 Single mean model
+
+![titanic](titanic.png)
+
 
 ```{r}
 # calculate residuals

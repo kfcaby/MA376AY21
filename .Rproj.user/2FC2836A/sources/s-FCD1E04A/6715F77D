@@ -1,25 +1,24 @@
 {
     "collab_server" : "",
     "contents" : "",
-    "created" : 1598367740608.000,
+    "created" : 1598967974985.000,
     "dirty" : true,
-    "encoding" : "",
+    "encoding" : "UTF-8",
     "folds" : "",
     "hash" : "0",
-    "id" : "82DF7DE",
-    "lastKnownWriteTime" : 4373946620,
-    "last_content_update" : 1598368147542,
-    "path" : null,
+    "id" : "6715F77D",
+    "lastKnownWriteTime" : 1598967966,
+    "last_content_update" : 1598968350036,
+    "path" : "~/Downloads/LSN_3.R",
     "project_path" : null,
     "properties" : {
-        "cursorPosition" : "2,0",
-        "scrollLine" : "0",
-        "tempName" : "Untitled1"
+        "cursorPosition" : "2,107",
+        "scrollLine" : "0"
     },
     "read_only" : false,
     "read_only_alternatives" : [
     ],
-    "relative_order" : 5,
+    "relative_order" : 10,
     "source_on_save" : false,
     "source_window" : "",
     "type" : "r_source"
