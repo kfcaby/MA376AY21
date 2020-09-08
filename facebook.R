@@ -19,11 +19,13 @@ braking_long %>%
   lm(time ~ participant + media, data = .) %>% 
   summary()
 
-contrasts(braking_long$media)
+
 
 #model using effect encoding
 contrasts(braking_long$participant) = contr.sum
 contrasts(braking_long$media) = contr.sum
+
+contrasts(braking_long$media)
 
 braking_long %>% 
   lm(time ~ participant + media, data = .) %>% 

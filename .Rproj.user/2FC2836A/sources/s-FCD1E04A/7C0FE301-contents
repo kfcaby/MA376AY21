@@ -12,21 +12,48 @@ wages_subset <- wages %>%
                                                   "PhD/MD/JD"))) %>% 
   filter(!is.na(Education)) 
 
-#calculate group means and residuals
+
+wages %>% 
+  ggplot(aes(x = Education, y = Earnings)) +
+  geom_boxplot()
+
+model <- wages_subset %>% 
+  lm(Earnings ~ Education, data = .)
+
+anova(model)
+
+# If there were no association between education and earnings,
+# the probability of observing this F stat or one more extreme
+# is essentually zero.
+
+# residual standard error
+# calculate the prediction
+# calculate the residual
+# calculate residual standard error
+
 residualSE <- wages_subset %>% 
   group_by(Education) %>% 
   mutate(group_mean = mean(Earnings),
          residual = Earnings - group_mean) %>% 
   group_by() %>% 
-  summarise(residualSE = sqrt(sum(residual^2)/(n() - 4))) %>% 
+  summarize(residualSE = sqrt(sum(residual^2)/(n()-4))) %>% 
   pull(residualSE)
 
+# calculate tstar
+tstar = qt(0.975,16206)
 
-
-#calculate 95% confidence intervals
+# calculate upper and lower limits
 wages_subset %>% 
   group_by(Education) %>% 
-  summarize(n = n(),
+  summarise(n = n(),
             group_mean = mean(Earnings),
-            lower = group_mean - qt(0.975,n() - 1)*residualSE/sqrt(n),
-            upper = group_mean + qt(0.975,n() - 1)*residualSE/sqrt(n))
+            lower = group_mean - tstar * residualSE/sqrt(n),
+            upper = group_mean + tstar * residualSE/sqrt(n))
+
+
+
+
+
+
+
+
