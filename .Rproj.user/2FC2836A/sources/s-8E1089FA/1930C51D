@@ -1,0 +1,33 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1600098521052.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "1930C51D",
+    "lastKnownWriteTime" : 1600092072,
+    "last_content_update" : 1600098521052,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "C1C294B3",
+        "caption" : "drivers_long",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=drivers_long&cache_key=C1C294B3",
+        "displayedObservations" : 36,
+        "environment" : "",
+        "expression" : "drivers_long",
+        "object" : "drivers_long",
+        "preview" : 0,
+        "totalObservations" : 36,
+        "variables" : 3
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 3,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}
